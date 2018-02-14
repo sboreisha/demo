@@ -1,7 +1,7 @@
 {
   "url": "/us/en/regression/components/image-only.html",
   "windowSize": {
-    "width": 378,
+    "width": 640,
     "height": 768
   },
   "component": [
@@ -13,21 +13,22 @@
       },
       "element": [
         {
-          "name": "Component1Element1"
+          "name": "Component1Element1",
           "elementSelector": {
             "how": "XPath",
             "selector": "//*[@id\u003d\"content\"]/div/div/div[1]/div/div/div/div/div/div/div/picture/img"
           },
           "elementCheckings": {
-            "fontSize": -1,
+            "fontSize": "-1",
             "padding": "200",
-            "anything": "true"
+            "anything": "true",
+            "rendition": "image-1x-md"
           },
           "relativeLocation": {
             "x": 30,
             "y": 85,
-            "height": 165,
-            "width": 247
+            "height": 365,
+            "width": 547
           }
         }
       ]
@@ -46,15 +47,16 @@
             "selector": "//*[@id\u003d\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[1]/picture/img"
           },
           "elementCheckings": {
-            "fontSize": -1,
+            "fontSize": "-1",
             "padding": "200",
-            "anything": "true"
+            "anything": "true",
+            "rendition": "image-1x-md"
           },
           "relativeLocation": {
             "x": 30,
-            "y": 414,
-            "height": 165,
-            "width": 247
+            "y": 813,
+            "height": 365,
+            "width": 547
           }
         },
         {
@@ -64,15 +66,16 @@
             "selector": "//*[@id\u003d\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[2]"
           },
           "elementCheckings": {
-            "fontSize": -1,
+            "fontSize": "-1",
             "padding": "200",
-            "anything": "true"
+            "anything": "true",
+            "rendition": "image-1x-md"
           },
           "relativeLocation": {
             "x": 30,
-            "y": 578,
+            "y": 1178,
             "height": 41,
-            "width": 247
+            "width": 547
           }
         },
         {
@@ -82,13 +85,14 @@
             "selector": "//*[@id\u003d\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[1]/div[1]/img"
           },
           "elementCheckings": {
-            "fontSize": -1,
+            "fontSize": "-1",
             "padding": "200",
-            "anything": "true"
+            "anything": "true",
+            "rendition": "image-1x-md"
           },
           "relativeLocation": {
-            "x": 113,
-            "y": 456,
+            "x": 263,
+            "y": 956,
             "height": 80,
             "width": 80
           }

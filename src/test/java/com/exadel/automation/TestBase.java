@@ -13,10 +13,16 @@ import io.qameta.allure.model.StepResult;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 import ru.stqa.selenium.factory.WebDriverPool;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
+import javax.imageio.ImageIO;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -64,6 +70,23 @@ public class TestBase {
                 new StepResult().withName(name).withStatus(Status.FAILED));
         Allure.getLifecycle().stopStep();
         return name;
+    }
+    public  byte[] onStepFailure(WebElement element) {
+        Screenshot shot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
+                .takeScreenshot(driver, element);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] imageInByte;
+        try {
+            ImageIO.write(shot.getImage(), "png", baos);
+            baos.flush();
+            imageInByte = baos.toByteArray();
+            baos.close();
+            return imageInByte;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @BeforeSuite(alwaysRun = true)

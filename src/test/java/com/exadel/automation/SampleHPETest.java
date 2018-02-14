@@ -8,6 +8,9 @@ import com.exadel.automation.pojo.helper.PageComponentReader;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -37,7 +40,22 @@ public class SampleHPETest extends TestBase {
         PageComponentLocationChecker locationChecker = new PageComponentLocationChecker(driver);
         String result = locationChecker.checkResponsivePage(pageComponentReader.getTestPageObject());
         Assert.assertFalse(result.contains("- "), "There are mismatches in elements, please refer to steps");
-
+ /*      WebElement element = driver.findElement(By.xpath("/*//*[@id=\"content\"]/div/div/div[1]/div/div/div/div/div/div/div/picture/img"));
+        System.out.println("SRC "+element.getAttribute("src"));
+        System.out.println("DATA SRC SET"+element.getAttribute("data-srcset"));
+        System.out.println("CURRENT src"+element.getAttribute("currentSrc"));
+        driver.manage().window().setSize(new Dimension(378,500));
+        System.out.println("---------------------------------------------");
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        element = driver.findElement(By.xpath("/*//*[@id=\"content\"]/div/div/div[1]/div/div/div/div/div/div/div/picture/img"));
+        System.out.println("SRC "+element.getAttribute("src"));
+        System.out.println("DATA SRC SET "+element.getAttribute("data-srcset"));
+        System.out.println("CURRENT src "+element.getAttribute("currentSrc"));
+        System.out.println("///////////////////////////////////////////////////////////////////////////////");*/
     }
 
     @DataProvider

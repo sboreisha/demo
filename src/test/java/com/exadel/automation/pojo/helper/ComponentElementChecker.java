@@ -27,7 +27,9 @@ public class ComponentElementChecker extends TestBase {
         StringBuilder result = new StringBuilder();
         WebElementHelper webElementHelper = new WebElementHelper(driver);
         WebElement elementToCheck = webElementHelper.getChildWebelement(element);
-        result.append(webElementHelper.checkFontSize(elementToCheck, element));
+        result.append(webElementHelper.checkFontSize(elementToCheck, element))
+                .append(webElementHelper.checkImageCanBeLoaded(elementToCheck))
+                .append(webElementHelper.CheckImageRenditions(elementToCheck, element));
         return result.toString();
     }
 }

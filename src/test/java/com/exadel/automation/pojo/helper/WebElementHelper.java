@@ -15,6 +15,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Listeners;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.net.MalformedURLException;
+
+import static com.sun.webkit.network.URLs.newURL;
+
 /**
  * Created by sboreisha on 2/5/2018.
  */
@@ -114,5 +120,30 @@ public class WebElementHelper extends TestBase {
         } else {
             return failedStepLog("- Expected font size " + expectedSize + ", but got " + actualSize + "\n");
         }
+    }
+
+    public String checkImageCanBeLoaded(WebElement element) {
+        String Source = element.getAttribute("currentSrc");
+        try {
+            BufferedImage img = ImageIO.read(newURL(Source));
+            return "+ Image can be loaded";
+        } catch (Exception e) {
+            return failedStepLog("- Image can not be loaded \n");
+        }
+    }
+
+    public String CheckImageRenditions(WebElement webElement, Elements element) {
+        String source = webElement.getAttribute("currentSrc");
+        String expectedSource = element.getElementCheckings().getRendition();
+        try {
+            if (!source.contains(expectedSource)) {
+                return failedStepLog("- Image rendition is not OK. Expected " + expectedSource + " but got " + source+"\n");
+            }
+        }catch (Exception e){
+            System.out.println(" image has no src");
+            return "";
+        }
+
+        return "+ Image rendition is ok";
     }
 }

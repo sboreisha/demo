@@ -2,12 +2,12 @@
 package com.exadel.automation.pojo;
 
 import java.io.Serializable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class ElementCheckings implements Serializable
-{
+public class ElementCheckings implements Serializable {
 
     @SerializedName("fontSize")
     @Expose
@@ -18,6 +18,18 @@ public class ElementCheckings implements Serializable
     @SerializedName("anything")
     @Expose
     private String anything;
+    @SerializedName("rendition")
+    @Expose
+    private String rendition;
+
+    public String getRendition() {
+        return rendition;
+    }
+
+    public void setRendition(String rendition) {
+        this.rendition = rendition;
+    }
+
     private final static long serialVersionUID = 56840738426372587L;
 
     public String getFontSize() {

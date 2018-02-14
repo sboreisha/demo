@@ -1,19 +1,19 @@
 {
   "url": "/us/en/regression/components/image-only.html",
   "windowSize": {
-    "width": 1000,
+    "width": 1600,
     "height": 768
   },
   "component": [
     {
-      "name": "componentName",
+      "name": "Component1",
       "componentSelector": {
         "how": "XPath",
         "selector": "//*[@id\u003d\"content\"]/div/div/div[1]/div/div/div/div/div"
       },
       "element": [
         {
-          "name": "name",
+          "name": "Component1Element1",
           "elementSelector": {
             "how": "XPath",
             "selector": "//*[@id\u003d\"content\"]/div/div/div[1]/div/div/div/div/div/div/div/picture/img"
@@ -21,26 +21,27 @@
           "elementCheckings": {
             "fontSize": -1,
             "padding": "200",
-            "anything": "true"
+            "anything": "true",
+            "rendition":"image-1x-md"
           },
           "relativeLocation": {
-            "x": 50,
-            "y": 85,
-            "height": 578,
-            "width": 867
+            "x": -1,
+            "y": -1,
+            "height": -1,
+            "width": -1
           }
         }
       ]
     },
     {
-      "name": "componentName",
+      "name": "Component2",
       "componentSelector": {
         "how": "XPath",
         "selector": "/html/body/div[1]/main/div/div/div[2]/div/div/div/div[2]/div"
       },
       "element": [
         {
-          "name": "elementName",
+          "name": "Component2Element1",
           "elementSelector": {
             "how": "XPath",
             "selector": "//*[@id\u003d\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[1]/picture/img"
@@ -48,17 +49,18 @@
           "elementCheckings": {
             "fontSize": -1,
             "padding": "200",
-            "anything": "true"
+            "anything": "true",
+            "rendition":"image-1x-md"
           },
           "relativeLocation": {
-            "x": 495,
-            "y": 662,
-            "height": 279,
-            "width": 419
+            "x": -1,
+            "y": -1,
+            "height": -1,
+            "width": -1
           }
         },
         {
-          "name": "elementName",
+          "name": "Component2Element2",
           "elementSelector": {
             "how": "XPath",
             "selector": "//*[@id\u003d\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[2]"
@@ -66,17 +68,18 @@
           "elementCheckings": {
             "fontSize": -1,
             "padding": "200",
-            "anything": "true"
+            "anything": "true",
+            "rendition":"image-1x-md"
           },
           "relativeLocation": {
-            "x": 495,
-            "y": 941,
-            "height": 41,
-            "width": 419
+            "x": -1,
+            "y": -1,
+            "height": -1,
+            "width": -1
           }
         },
         {
-          "name": "elementName",
+          "name": "Component2Element3",
           "elementSelector": {
             "how": "XPath",
             "selector": "//*[@id\u003d\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[1]/div[1]/img"
@@ -84,13 +87,14 @@
           "elementCheckings": {
             "fontSize": -1,
             "padding": "200",
-            "anything": "true"
+            "anything": "true",
+            "rendition":"image-1x-md"
           },
           "relativeLocation": {
-            "x": 665,
-            "y": 762,
-            "height": 80,
-            "width": 80
+            "x": -1,
+            "y": -1,
+            "height": -1,
+            "width": -1
           }
         }
       ]

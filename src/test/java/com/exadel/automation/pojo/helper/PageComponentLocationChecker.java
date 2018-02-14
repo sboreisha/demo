@@ -172,21 +172,5 @@ public class PageComponentLocationChecker extends TestBase {
     }
 
 
-    public byte[] onStepFailure(WebElement element) {
-        Screenshot shot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
-                .takeScreenshot(driver, element);
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] imageInByte;
-        try {
-            ImageIO.write(shot.getImage(), "png", baos);
-            baos.flush();
-            imageInByte = baos.toByteArray();
-            baos.close();
-            return imageInByte;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }
