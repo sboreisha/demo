@@ -1,0 +1,97 @@
+{
+  "url": "/us/en/regression/components/image-only.html",
+  "windowSize": {
+    "width": 1300,
+    "height": 768
+  },
+  "component": [
+    { "name":"componentName",
+      "componentSelector": {
+        "how": "XPath",
+        "selector": "//*[@id\u003d\"content\"]/div/div/div[1]/div/div/div/div/div"
+      },
+      "element": [
+        {
+          "name": "name",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id=\"content\"]/div/div/div[1]/div/div/div/div/div/div/div/picture/img"
+          },
+          "elementCheckings": {
+            "fontSize": "17px",
+            "padding": "200",
+            "anything": "true"
+          },
+          "relativeLocation": {
+            "x": -1,
+            "y": -1,
+            "height": -1,
+            "width": -1
+          }
+        }
+      ]
+    },
+    {"name":"componentName",
+      "componentSelector": {
+        "how": "XPath",
+        "selector": "/html/body/div[1]/main/div/div/div[2]/div/div/div/div[2]/div"
+      },
+      "element": [
+        {
+          "name":"elementName",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id=\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[1]/picture/img"
+          },
+          "elementCheckings": {
+            "fontSize": "17px",
+            "padding": "200",
+            "anything": "true"
+          },
+          "relativeLocation": {
+            "x": -1,
+            "y": -1,
+            "height": -1,
+            "width": -1
+          }
+        },
+        {
+          "name":"elementName",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id=\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[2]"
+          },
+          "elementCheckings": {
+            "fontSize": "17px",
+            "padding": "200",
+            "anything": "true"
+          },
+          "relativeLocation": {
+            "x": -1,
+            "y": -1,
+            "height": -1,
+            "width": -1
+          }
+        },
+        {
+          "name":"elementName",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id=\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[1]/div[1]/img"
+          },
+          "elementCheckings": {
+            "fontSize": "17px",
+            "padding": "200",
+            "anything": "true"
+          },
+          "relativeLocation": {
+            "x": -1,
+            "y": -1,
+            "height": -1,
+            "width": -1
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "url": "/us/en/regression/components/image-only.html",
+  "windowSize": {
+    "width": 378,
+    "height": 768
+  },
+  "component": [
+    {
+      "name": "Component1",
+      "componentSelector": {
+        "how": "XPath",
+        "selector": "//*[@id\u003d\"content\"]/div/div/div[1]/div/div/div/div/div"
+      },
+      "element": [
+        {
+          "name": "Component1Element1"
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id\u003d\"content\"]/div/div/div[1]/div/div/div/div/div/div/div/picture/img"
+          },
+          "elementCheckings": {
+            "fontSize": -1,
+            "padding": "200",
+            "anything": "true"
+          },
+          "relativeLocation": {
+            "x": 30,
+            "y": 85,
+            "height": 165,
+            "width": 247
+          }
+        }
+      ]
+    },
+    {
+      "name": "Component2",
+      "componentSelector": {
+        "how": "XPath",
+        "selector": "/html/body/div[1]/main/div/div/div[2]/div/div/div/div[2]/div"
+      },
+      "element": [
+        {
+          "name": "Component2Element1",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id\u003d\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[1]/picture/img"
+          },
+          "elementCheckings": {
+            "fontSize": -1,
+            "padding": "200",
+            "anything": "true"
+          },
+          "relativeLocation": {
+            "x": 30,
+            "y": 414,
+            "height": 165,
+            "width": 247
+          }
+        },
+        {
+          "name": "Component2Element2",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id\u003d\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[2]"
+          },
+          "elementCheckings": {
+            "fontSize": -1,
+            "padding": "200",
+            "anything": "true"
+          },
+          "relativeLocation": {
+            "x": 30,
+            "y": 578,
+            "height": 41,
+            "width": 247
+          }
+        },
+        {
+          "name": "Component2Element3",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id\u003d\"content\"]/div/div/div[2]/div/div/div/div[2]/div/div/div[1]/div[1]/img"
+          },
+          "elementCheckings": {
+            "fontSize": -1,
+            "padding": "200",
+            "anything": "true"
+          },
+          "relativeLocation": {
+            "x": 113,
+            "y": 456,
+            "height": 80,
+            "width": 80
+          }
+        }
+      ]
+    }
+  ]
+}
