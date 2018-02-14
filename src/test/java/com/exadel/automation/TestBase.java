@@ -51,6 +51,14 @@ public class TestBase {
     public static void stepLog(String message) {
     }
 
+    public static String failedStepLog(String name, byte[] bytes) {
+        Allure.getLifecycle().startStep(Allure.getLifecycle().getCurrentTestCase().toString(),
+                new StepResult().withName(name).withStatus(Status.FAILED));
+        Allure.getLifecycle().addAttachment("Broken element", "image/png", "png", bytes);
+        Allure.getLifecycle().stopStep();
+        return name;
+    }
+
     public static String failedStepLog(String name) {
         Allure.getLifecycle().startStep(Allure.getLifecycle().getCurrentTestCase().toString(),
                 new StepResult().withName(name).withStatus(Status.FAILED));

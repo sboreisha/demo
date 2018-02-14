@@ -9,13 +9,20 @@ import com.exadel.automation.pojo.RelativeLocation;
 import com.exadel.automation.pojo.TestPage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import io.qameta.allure.model.Status;
+import io.qameta.allure.model.StepResult;
+import org.openqa.selenium.*;
+import org.testng.ITestResult;
 import org.testng.annotations.Listeners;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
+import javax.imageio.ImageIO;
+import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -37,28 +44,28 @@ public class PageComponentLocationChecker extends TestBase {
         if (element.getLocation().getX() == x) {
             return "+ X location is ok\n";
         }
-        return failedStepLog("- Checking X location failed with " + element.getLocation().getY() + " not equal " + x + "\n");
+        return failedStepLog("- Checking X location failed with " + element.getLocation().getY() + " not equal " + x + "\n", onStepFailure(element));
     }
 
     private String isYOk(WebElement element, int x) {
         if (element.getLocation().getY() == x) {
             return "+ Y location is ok\n";
         }
-        return failedStepLog("- Checking Y location failed with " + element.getLocation().getY() + " not equal " + x + "\n");
+        return failedStepLog("- Checking Y location failed with " + element.getLocation().getY() + " not equal " + x + "\n", onStepFailure(element));
     }
 
     private String isHeightOk(WebElement element, int x) {
         if (element.getSize().getHeight() == x) {
             return "+ Height is ok\n ";
         }
-        return failedStepLog("- Checking height failed with " + element.getSize().getHeight() + " not equal " + x + "\n");
+        return failedStepLog("- Checking height failed with " + element.getSize().getHeight() + " not equal " + x + "\n", onStepFailure(element));
     }
 
     private String isWidthOk(WebElement element, int x) {
         if (element.getSize().getWidth() == x) {
             return "+ Width is ok\n ";
         }
-        return failedStepLog("- Checking width failed with " + element.getSize().getWidth() + " not equal " + x + "\n");
+        return failedStepLog("- Checking width failed with " + element.getSize().getWidth() + " not equal " + x + "\n", onStepFailure(element));
     }
 
     private String checkResponsiveElement(Elements element, TestPage testPage) {
@@ -160,6 +167,26 @@ public class PageComponentLocationChecker extends TestBase {
                 result.append(doCheckings(components.get(i).getElements().get(j), testPage));
             }
         }
+
         return result.toString();
+    }
+
+
+    public byte[] onStepFailure(WebElement element) {
+        Screenshot shot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
+                .takeScreenshot(driver, element);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] imageInByte;
+        try {
+            ImageIO.write(shot.getImage(), "png", baos);
+            baos.flush();
+            imageInByte = baos.toByteArray();
+            baos.close();
+            return imageInByte;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

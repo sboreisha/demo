@@ -21,6 +21,7 @@ public class AllureListener extends TestListenerAdapter {
         }
     }
 
+
     @Attachment(value = "Failed test screenshot", type = "image/png")
     private byte[] saveScreenshot(byte[] screenshot) {
         return screenshot;
