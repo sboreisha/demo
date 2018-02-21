@@ -2,12 +2,12 @@
 package com.exadel.automation.pojo;
 
 import java.io.Serializable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class ComponentSelector implements Serializable
-{
+public class ComponentSelector implements Serializable {
 
     @SerializedName("how")
     @Expose

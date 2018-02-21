@@ -2,6 +2,8 @@
 package com.exadel.automation.pojo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -17,11 +19,11 @@ public class Elements implements Serializable
     private ElementSelector elementSelector;
     @SerializedName("elementCheckings")
     @Expose
-    private ElementCheckings elementCheckings;
+    private List<ElementChecking> elementCheckings = new ArrayList<ElementChecking>();
     @SerializedName("relativeLocation")
     @Expose
     private RelativeLocation relativeLocation;
-    private final static long serialVersionUID = -5775220051275369521L;
+    private final static long serialVersionUID = 8845944588667244941L;
 
     public String getName() {
         return name;
@@ -39,11 +41,11 @@ public class Elements implements Serializable
         this.elementSelector = elementSelector;
     }
 
-    public ElementCheckings getElementCheckings() {
+    public List<ElementChecking> getElementCheckings() {
         return elementCheckings;
     }
 
-    public void setElementCheckings(ElementCheckings elementCheckings) {
+    public void setElementCheckings(List<ElementChecking> elementCheckings) {
         this.elementCheckings = elementCheckings;
     }
 

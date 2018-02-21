@@ -42,7 +42,7 @@ public class Components implements Serializable
         return element;
     }
 
-    public void setElement(List<Elements> element) {
+    public void setElements(List<Elements> element) {
         this.element = element;
     }
 

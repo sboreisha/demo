@@ -5,7 +5,6 @@ import com.exadel.automation.listeners.JiraListener;
 import com.exadel.automation.pojo.Components;
 import com.exadel.automation.pojo.TestPage;
 import com.google.gson.Gson;
-import io.qameta.allure.Step;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.testng.annotations.Listeners;
@@ -18,10 +17,10 @@ import java.util.List;
  * Created by sboreisha on 2/5/2018.
  */
 @Listeners({AllureListener.class, JiraListener.class})
-public class PageComponentReader {
+public class PageElementReader {
     TestPage response;
 
-    public PageComponentReader(File fileName) {
+    public PageElementReader(File fileName) {
         JSONParser parser = new JSONParser();
         JSONObject obj = new JSONObject();
         try {

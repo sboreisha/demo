@@ -9,13 +9,11 @@ import com.exadel.automation.pojo.RelativeLocation;
 import com.exadel.automation.pojo.TestPage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.qameta.allure.Allure;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
-import io.qameta.allure.model.Status;
-import io.qameta.allure.model.StepResult;
-import org.openqa.selenium.*;
-import org.testng.ITestResult;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
@@ -31,48 +29,49 @@ import java.util.List;
  * Created by sboreisha on 2/9/2018.
  */
 @Listeners({AllureListener.class, JiraListener.class})
-public class PageComponentLocationChecker extends TestBase {
+public class PageElementRDChecker extends TestBase {
     protected WebDriver driver;
-    protected WebElementHelper helper;
+    protected CheckWebElementUI helper;
 
-    public PageComponentLocationChecker(WebDriver driver) {
+    public PageElementRDChecker(WebDriver driver) {
         this.driver = driver;
-        helper = new WebElementHelper(driver);
+        helper = new CheckWebElementUI(driver);
     }
 
     private String isXOk(WebElement element, int x) {
         if (element.getLocation().getX() == x) {
             return "+ X location is ok\n";
         }
-        return failedStepLog("- Checking X location failed with " + element.getLocation().getY() + " not equal " + x + "\n", onStepFailure(element));
+        return failedStepLog("- Checking X location failed with " + element.getLocation().getY() + " not equal " + x + "\n", onStepFailure());
     }
 
     private String isYOk(WebElement element, int x) {
         if (element.getLocation().getY() == x) {
             return "+ Y location is ok\n";
         }
-        return failedStepLog("- Checking Y location failed with " + element.getLocation().getY() + " not equal " + x + "\n", onStepFailure(element));
+        return failedStepLog("- Checking Y location failed with " + element.getLocation().getY() + " not equal " + x + "\n", onStepFailure());
     }
 
     private String isHeightOk(WebElement element, int x) {
         if (element.getSize().getHeight() == x) {
             return "+ Height is ok\n ";
         }
-        return failedStepLog("- Checking height failed with " + element.getSize().getHeight() + " not equal " + x + "\n", onStepFailure(element));
+        return failedStepLog("- Checking height failed with " + element.getSize().getHeight() + " not equal " + x + "\n");
     }
 
     private String isWidthOk(WebElement element, int x) {
         if (element.getSize().getWidth() == x) {
             return "+ Width is ok\n ";
         }
-        return failedStepLog("- Checking width failed with " + element.getSize().getWidth() + " not equal " + x + "\n", onStepFailure(element));
+        return failedStepLog("- Checking width failed with " + element.getSize().getWidth() + " not equal " + x + "\n", onStepFailure());
     }
 
     private String checkResponsiveElement(Elements element, TestPage testPage) {
         int updateJSON = 0;
+        CheckWebElementUI helper = new CheckWebElementUI(driver);
+
         RelativeLocation relativeLocation = element.getRelativeLocation();
-        WebElementHelper helper = new WebElementHelper(driver);
-        WebElement elementToCheck = helper.getChildWebelement(element);
+        WebElement elementToCheck = helper.getWebelementByPageElement(element);
         int x = relativeLocation.getX();
         int y = relativeLocation.getY();
         int height = relativeLocation.getHeight();
@@ -149,10 +148,14 @@ public class PageComponentLocationChecker extends TestBase {
 
     @Step("Start verifying element {element.name} on {testPage.windowSize.width} width")
     private String doCheckings(Elements element, TestPage testPage) {
-        ComponentElementChecker checker = new ComponentElementChecker(driver);
-        StringBuilder result = new StringBuilder().append(checkResponsiveElement(element, testPage))
-                .append(checker.checkElementLook(element));
-        return result.toString();
+        CheckerMethodSelector checker = new CheckerMethodSelector(driver);
+        StringBuilder result = new StringBuilder();
+        if (helper.checkElementIsPresent(element)) {
+            result.append(checkResponsiveElement(element, testPage))
+                    .append(checker.checkElementLook(element));
+            return result.toString();
+        }
+        return failedStepLog("- Element " + element.getName() + " is not present on the page \n");
     }
 
     public String checkResponsivePage(TestPage testPage) {
@@ -162,8 +165,9 @@ public class PageComponentLocationChecker extends TestBase {
         result.append(testPage.getUrl() + " " + testPage.getWindowSize().toString() + "\n");
         result.append(checkScroll() + "\n");
         for (int i = 0; i < components.size(); i++) {
-            result.append("\nComponent " + components.get(i).getName() + "\n");
+            result.append("\n            Component " + components.get(i).getName() + "\n");
             for (int j = 0; j < components.get(i).getElements().size(); j++) {
+                result.append("   Element "+components.get(i).getElements().get(j).getName()+"\n");
                 result.append(doCheckings(components.get(i).getElements().get(j), testPage));
             }
         }
@@ -171,6 +175,22 @@ public class PageComponentLocationChecker extends TestBase {
         return result.toString();
     }
 
-
+    public byte[] onStepFailure() {
+        AShot aShot = new AShot();
+        aShot.shootingStrategy(ShootingStrategies.viewportPasting(100));
+        Screenshot shot = aShot.takeScreenshot(driver);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] imageInByte;
+        try {
+            ImageIO.write(shot.getImage(), "png", baos);
+            baos.flush();
+            imageInByte = baos.toByteArray();
+            baos.close();
+            return imageInByte;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
