@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
  * Created by sboreisha on 2/21/2018.
  */
 public interface CheckVideoInterface {
-    String checkVideoAutplay(WebElement element);
+    String checkVideoAutoplay(WebElement element);
 
     String checkPlayPauseButton(WebElement element);
 
@@ -23,4 +23,6 @@ public interface CheckVideoInterface {
     String checkImageClickable(WebElement webElement, String shouldBeShown);
 
     String checkVideoOverlayStatusOnClick(WebElement webElement, String shouldBeShown);
+
+    String checkShareButton(WebElement element);
 }

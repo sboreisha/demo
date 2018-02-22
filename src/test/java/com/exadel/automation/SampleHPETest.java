@@ -33,7 +33,7 @@ public class SampleHPETest extends TestBase {
     @Test(dataProvider = "getData", description = "Checking page RD")
     public void testRDS(File fileName) {
         PageElementReader pageComponentReader = new PageElementReader(fileName);
-        driver.get("https://www.hpe.com/us/en/regression/components/image-only.html");
+        driver.get(pageComponentReader.getTestPageObject().getUrl());
         PageElementRDChecker locationChecker = new PageElementRDChecker(driver);
         String result = locationChecker.checkResponsivePage(pageComponentReader.getTestPageObject());
         Assert.assertFalse(result.contains("- "), "There are mismatches in elements, please refer to steps\n" + result);

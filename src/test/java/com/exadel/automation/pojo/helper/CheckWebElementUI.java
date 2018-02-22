@@ -83,7 +83,7 @@ public class CheckWebElementUI extends TestBase {
         try {
             return driver.findElement(by);
         } catch (Exception e) {
-            Uninterruptibles.sleepUninterruptibly(15000, TimeUnit.MILLISECONDS);
+            Uninterruptibles.sleepUninterruptibly(3000, TimeUnit.MILLISECONDS);
             return driver.findElement(by);
         }
     }
@@ -128,7 +128,8 @@ public class CheckWebElementUI extends TestBase {
         }
     }
 
-    public String checkImageCanBeLoaded(WebElement webElement) {
+    public String checkImageCanBeLoaded(WebElement element) {
+        WebElement webElement = element.findElement(By.cssSelector("img"));
         String Source = webElement.getAttribute("currentSrc");
         try {
             BufferedImage img = ImageIO.read(newURL(Source));
@@ -138,7 +139,8 @@ public class CheckWebElementUI extends TestBase {
         }
     }
 
-    public String checkImageRenditions(WebElement webElement, String expectedSource) {
+    public String checkImageRenditions(WebElement element, String expectedSource) {
+        WebElement webElement = element.findElement(By.cssSelector("img"));
         String source = webElement.getAttribute("currentSrc");
         try {
             if (source.contains(expectedSource)) {
@@ -262,6 +264,13 @@ public class CheckWebElementUI extends TestBase {
         }
     }
 
+    public String checkVideoInfoTimer(WebElement element) {
+        if (element.findElements(By.cssSelector(".video-info")).size() > 0) {
+            return "+ Video info is present";
+        }
+        return failedStepLog("- Video info is not displayed\n");
+    }
+
 
     public boolean checkElementIsPresent(By by) {
         try {
@@ -282,6 +291,7 @@ public class CheckWebElementUI extends TestBase {
             return false;
         }
     }
+
     public void pressEsc() {
         try {
             Robot robot = new Robot();

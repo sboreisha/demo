@@ -26,6 +26,8 @@ public class CheckBrightcoveVideo extends CheckWebElementUI implements CheckVide
     By captionButtonBy = By.cssSelector(".vjs-subs-caps-button");
     By captionText = By.cssSelector(".vjs-text-track-display div div");
     By closeVideoButton = By.cssSelector(".close-video");
+    By sharePopup = By.cssSelector("#at15s");
+    By shareButton = By.cssSelector(".icon-share-global");
 
     /**
      * Check if video is opened by video button click and closed by ESC button
@@ -33,8 +35,19 @@ public class CheckBrightcoveVideo extends CheckWebElementUI implements CheckVide
      * @param element - container for video
      * @return result of button click
      */
+    public String checkShareButton(WebElement element) {
+        pressEsc();
+        clickPlayVideoButton(element);
+        Actions actions =new Actions(driver);
+        actions.moveToElement(getElement(shareButton)).pause(150).perform();
+        if(getElement(sharePopup).getCssValue("display").equals("block")){
+            return "+ Share popup is shown on mouse hover\n";
+        }
+        return failedStepLog("- Share popup is not shown on hover\n");
+    }
+
     @Override
-    public String checkVideoAutplay(WebElement element) {
+    public String checkVideoAutoplay(WebElement element) {
         pressEsc();
         clickPlayVideoButton(element);
         Boolean isPlaying = checkBrightCoveVideoIsPlaying();
@@ -96,7 +109,6 @@ public class CheckBrightcoveVideo extends CheckWebElementUI implements CheckVide
     public String checkVideoCaption(WebElement element) {
         pressEsc();
         clickPlayVideoButton(element);
-        StringBuilder result = new StringBuilder();
         clickOnCaptionButton();
         if (!captionPopupIsShown()) {
             return failedStepLog("- Caption language selection menu is not shown\n");
@@ -131,8 +143,8 @@ public class CheckBrightcoveVideo extends CheckWebElementUI implements CheckVide
     public String checkCloseVideoButton(WebElement element) {
         pressEsc();
         clickPlayVideoButton(element);
-        pressEsc();
-        if (driver.findElements(videoOverlayBy).size()>0){
+        clickCloseVideoButton();
+        if (driver.findElements(videoOverlayBy).size() > 0) {
             return "+ Video is closed on close button\n";
         }
         return failedStepLog("- Video is not closed on Close button\n");
@@ -248,7 +260,6 @@ public class CheckBrightcoveVideo extends CheckWebElementUI implements CheckVide
         pressEsc();
         return "";
     }
-
 
 
 }

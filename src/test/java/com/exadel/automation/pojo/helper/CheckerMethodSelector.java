@@ -20,12 +20,14 @@ import java.util.List;
 public class CheckerMethodSelector extends TestBase {
     WebDriver driver;
     CheckWebElementUI webElementHelper;
-    CheckVideoInterface videoHelper;
+    CheckVideoInterface videoHelperBrightcove;
+    CheckYoutubeVideo videoHelperYoutube;
 
     public CheckerMethodSelector(WebDriver driver) {
         this.driver = driver;
         this.webElementHelper = new CheckWebElementUI(driver);
-        this.videoHelper = new CheckBrightcoveVideo(driver);
+        this.videoHelperBrightcove = new CheckBrightcoveVideo(driver);
+        this.videoHelperYoutube = new CheckYoutubeVideo(driver);
     }
 
     public String checkElementLook(Elements element) {
@@ -58,7 +60,7 @@ public class CheckerMethodSelector extends TestBase {
                         result.append(webElementHelper.checkImageCursor(elementToCheck, checking.getValue()));
                         break;
                     case "overlayIsShownOnClick":
-                        result.append(videoHelper.checkImageClickable(elementToCheck, checking.getValue()));
+                        result.append(videoHelperBrightcove.checkImageClickable(elementToCheck, checking.getValue()));
                         break;
                     case "captionWrapperText":
                         result.append(webElementHelper.checkCaptionWrapperText(elementToCheck, checking.getValue()));
@@ -87,26 +89,64 @@ public class CheckerMethodSelector extends TestBase {
                     case "captionWrapperCursor":
                         result.append(webElementHelper.checkCaptionWrapperCursor(elementToCheck, checking.getValue()));
                         break;
-                    case "checkPlayDirectBritecoveVideo":
-                        result.append(videoHelper.checkVideoAutplay(elementToCheck));
+                    //------------------------------------------Brightcove Section
+                    case "checkPlayDirectVideoBC":
+                        result.append(videoHelperBrightcove.checkVideoAutoplay(elementToCheck));
                         break;
-                    case "checkPlayPauseButton":
-                        result.append(videoHelper.checkPlayPauseButton(elementToCheck));
+                    case "checkPlayPauseButtonBC":
+                        result.append(videoHelperBrightcove.checkPlayPauseButton(elementToCheck));
                         break;
-                    case "checkPlayPauseOnSpaceBrightcove":
-                        result.append(videoHelper.checkSpaceButton(elementToCheck));
+                    case "checkPlayPauseOnSpaceBC":
+                        result.append(videoHelperBrightcove.checkSpaceButton(elementToCheck));
                         break;
-                    case "checkMuteUnmute":
-                        result.append(videoHelper.checkMuteUnmute(elementToCheck));
+                    case "checkMuteUnmuteBC":
+                        result.append(videoHelperBrightcove.checkMuteUnmute(elementToCheck));
                         break;
-                    case "checkVideoCaption":
-                        result.append(videoHelper.checkVideoCaption(elementToCheck));
+                    case "checkVideoCaptionBC":
+                        result.append(videoHelperBrightcove.checkVideoCaption(elementToCheck));
                         break;
-                    case "checkFullscreenVideo":
-                        result.append(videoHelper.checkFullscreenVideo(elementToCheck));
+                    case "checkFullscreenVideoBC":
+                        result.append(videoHelperBrightcove.checkFullscreenVideo(elementToCheck));
                         break;
-                    case "checkVideoCloseIconBrightcove":
-                        result.append(videoHelper.checkCloseVideoButton(elementToCheck));
+                    case "checkVideoCloseIconBC":
+                        result.append(videoHelperBrightcove.checkCloseVideoButton(elementToCheck));
+                        break;
+                    case "checkShareBC":
+                        result.append(videoHelperBrightcove.checkShareButton(elementToCheck));
+                        break;
+
+                    //------------------------------------------Youtube Section\
+                    case "checkPlayDirectVideoYT":
+                        result.append(videoHelperYoutube.checkVideoAutoplay(elementToCheck));
+                        break;
+                    case "checkPlayPauseButtonYT":
+                        result.append(videoHelperYoutube.checkPlayPauseButton(elementToCheck));
+                        break;
+                    case "checkPlayPauseOnSpaceYT":
+                        result.append(videoHelperYoutube.checkSpaceButton(elementToCheck));
+                        break;
+                    case "checkMuteUnmuteYT":
+                        result.append(videoHelperYoutube.checkMuteUnmute(elementToCheck));
+                        break;
+                    case "checkVideoCaptionYT":
+                        result.append(videoHelperYoutube.checkVideoCaption(elementToCheck));
+                        break;
+                    case "checkFullscreenVideoYT":
+                        result.append(videoHelperYoutube.checkFullscreenVideo(elementToCheck));
+                        break;
+                    case "checkVideoCloseIconYT":
+                        result.append(videoHelperYoutube.checkCloseVideoButton(elementToCheck));
+                        break;
+                    case "checkShareYT":
+                        result.append(videoHelperYoutube.checkShareButton(elementToCheck));
+                        break;
+
+                    case "checkPlayOnYoutubeButton":
+                        result.append(videoHelperYoutube.checkPlayOnYoutube(elementToCheck));
+                        break;
+                    case "checkVideoInfo":
+                        result.append(webElementHelper.checkVideoInfoTimer(elementToCheck));
+                        break;
                     default:
                         result.append("");
                         break;
