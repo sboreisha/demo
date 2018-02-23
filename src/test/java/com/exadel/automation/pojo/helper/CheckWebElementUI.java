@@ -12,7 +12,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Listeners;
@@ -46,6 +45,11 @@ public class CheckWebElementUI extends TestBase {
         this.driver = driver;
     }
 
+    /**
+     * Builds webdriver by based on json component selector
+     * @param componentSelector
+     * @return
+     */
     public By getElementBy(ComponentSelector componentSelector) {
         By by;
         String how = componentSelector.getHow();
@@ -70,15 +74,31 @@ public class CheckWebElementUI extends TestBase {
         return by;
     }
 
+    /**
+     * Builds element by base on json element
+     * @param elementSelector
+     * @return
+     */
     public By getElementBy(ElementSelector elementSelector) {
         return getElementBy(new ComponentSelector(elementSelector.getHow(), elementSelector.getSelector()));
     }
 
-
+    /**
+     * Search for Web Element based on JSON element
+     * @param element
+     * @return
+     * @throws NoSuchElementException
+     */
     public WebElement getWebelementByPageElement(Elements element) throws NoSuchElementException {
         return getElement(getElementBy(element.getElementSelector()));
     }
 
+    /**
+     * Get web element by webdriver By
+     * @param by
+     * @return
+     * @throws NoSuchElementException
+     */
     public WebElement getElement(By by) throws NoSuchElementException {
         try {
             return driver.findElement(by);
@@ -88,37 +108,74 @@ public class CheckWebElementUI extends TestBase {
         }
     }
 
-
-    public String checkFontFamily(WebElement webElement, String expectedSize) {
+    /**
+     * Checks font family of the element
+     * @param webElement
+     * @param fontFamily expected font family
+     * @return
+     */
+    public String checkFontFamily(WebElement webElement, String fontFamily) {
         String actualSize = webElement.getCssValue("font-family");
         actualSize = actualSize.replace("\"", "");
-        if (actualSize.contains(expectedSize)) {
+        if (actualSize.contains(fontFamily)) {
             return "+ Font family is ok \n";
         } else {
-            return failedStepLog("- Expected font family " + expectedSize + ", but got " + actualSize + "\n");
+            return failedStepLog("- Expected font family " + fontFamily + ", but got " + actualSize + "\n");
         }
     }
 
-    public String checkTextAlign(WebElement webElement, String expectedSize) {
+    /**
+     * Checks text align
+     * @param webElement
+     * @param textAlign expected align
+     * @return
+     */
+    public String checkTextAlign(WebElement webElement, String textAlign) {
         String actualSize = webElement.getCssValue("text-align");
         actualSize = actualSize.replace("\"", "");
-        if (actualSize.contains(expectedSize)) {
+        if (actualSize.contains(textAlign)) {
             return "+ Text align is is ok \n";
         } else {
-            return failedStepLog("- Expected text align to be " + expectedSize + ", but got " + actualSize + "\n");
+            return failedStepLog("- Expected text align to be " + textAlign + ", but got " + actualSize + "\n");
         }
     }
 
-    public String checkFontColor(WebElement webElement, String expectedSize) {
+    /**
+     * Checks font color in hex
+     * @param webElement
+     * @param hexColor
+     * @return
+     */
+    public String checkFontColor(WebElement webElement, String hexColor) {
         String actualSize = webElement.getCssValue("color");
-        if ((rgbToHex(actualSize)).contains(expectedSize)) {
+        if ((rgbToHex(actualSize)).contains(hexColor)) {
             return "+ Font color is ok \n";
         } else {
-            return failedStepLog("- Expected font color " + expectedSize + ", but got " + rgbToHex(actualSize) + "\n");
+            return failedStepLog("- Expected font color " + hexColor + ", but got " + rgbToHex(actualSize) + "\n");
         }
     }
 
+    /**
+     * Checks line height of the element
+     * @param webElement
+     * @param expectedSize
+     * @return
+     */
+    public String checkLineHeight(WebElement webElement, String expectedSize) {
+        String actualSize = webElement.getCssValue("line-heigh");
+        if ((rgbToHex(actualSize)).contains(expectedSize)) {
+            return "+ Lin e height \n";
+        } else {
+            return failedStepLog("- Expected height " + expectedSize + ", but got " + rgbToHex(actualSize) + "\n");
+        }
+    }
 
+    /**
+     * Checks font size of text element
+     * @param webElement
+     * @param expectedSize
+     * @return
+     */
     public String checkFontSize(WebElement webElement, String expectedSize) {
         String actualSize = webElement.getCssValue("font-size");
         if (expectedSize.equalsIgnoreCase(actualSize)) {
@@ -206,9 +263,13 @@ public class CheckWebElementUI extends TestBase {
         return failedStepLog("- Expected data attribute to be " + value + ", but got " + actualName + "\n");
     }
 
+    public String checkPhoneLinkAnalytics(WebElement element, String value) {
+        return checkAllAnalytics(getTelLink(element),value);
+    }
+
     public String checkAllAnalytics(WebElement element, String value) {
         String[] expectedArray = value.split(",");
-        String[] actualArray = getAttributesByPartialName(element, "data").replace("{", "").replace("}", "").split(",");
+        String[] actualArray = getAttributesByPartialName(element, "analytics").replace("{", "").replace("}", "").split(",");
         ArrayList expectedValues = new ArrayList<String>(Arrays.asList(expectedArray));
         ArrayList actualValues = new ArrayList<String>(Arrays.asList(actualArray));
         expectedValues.removeAll(Arrays.asList(actualArray)); //list contains items only in name
@@ -231,6 +292,96 @@ public class CheckWebElementUI extends TestBase {
         }
     }
 
+    public String checkNewWindowOnHyperlink(WebElement element) {
+        try {
+            WebElement webElement = element.findElement(By.cssSelector("a"));
+            webElement.click();
+            if (isNewWindowOpened()) {
+                return "+ New window is opened on hyperlink\n";
+            }
+            Uninterruptibles.sleepUninterruptibly(1500, TimeUnit.MILLISECONDS);
+            driver.navigate().back();
+            return failedStepLog("- Window is not opened on hyperlink\n");
+        } catch (Exception e) {
+            Uninterruptibles.sleepUninterruptibly(1500, TimeUnit.MILLISECONDS);
+            driver.navigate().back();
+            Uninterruptibles.sleepUninterruptibly(1500, TimeUnit.MILLISECONDS);
+            return failedStepLog("- something went wrong with new window on hyperlink \n");
+        }
+    }
+
+    public String checkNoNewWindowOnHyperlink(WebElement element) {
+        try {
+            String urlBefore = driver.getCurrentUrl();
+            WebElement webElement = element.findElement(By.cssSelector("a"));
+            webElement.click();
+            Uninterruptibles.sleepUninterruptibly(1500, TimeUnit.MILLISECONDS);
+            if (!urlBefore.equals(driver.getCurrentUrl())) {
+                driver.navigate().back();
+                return "+ Browser navigates to hyperlink\n";
+            }
+            return failedStepLog("- Link navigation is not working\n");
+        } catch (Exception e) {
+            return failedStepLog("- something went wrong with no new window on hyperlink\n");
+        }
+    }
+
+    public String checkTelHyperlink(WebElement element) {
+        String result = "";
+        try {
+            getTelLink(element).click();
+            result = "+ Phone link contains phone number\n";
+            Boolean isOpened = true;
+            if (isAlertPresent()) {
+                driver.switchTo().alert();
+                driver.switchTo().alert().dismiss();
+                driver.switchTo().defaultContent();
+                result = "+ Popup has been shown on phone link click\n";
+            }
+            try {
+                String winHandleBefore = driver.getWindowHandle();
+                for (String winHandle : driver.getWindowHandles()) {
+                    driver.switchTo().window(winHandle);
+                }
+                driver.close();
+                driver.switchTo().window(winHandleBefore);
+            } catch (Exception e) {
+                logger.info("No new window has been shown on tel link\n");
+            }
+            if (isOpened) {
+                return result;
+            }
+            return failedStepLog("- URL with phone number is not opened in a new window\n");
+        } catch (Exception e) {
+            return failedStepLog("- something went wrong with tel on hyperlink\n");
+        }
+    }
+
+    private boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } // try
+        catch (Exception e) {
+            return false;
+        } // catch
+    }
+
+    private Boolean isNewWindowOpened() {
+        Boolean isOpened = false;
+        String winHandleBefore = driver.getWindowHandle();
+        if (driver.getWindowHandles().size() > 1) {
+            isOpened = true;
+
+            for (String winHandle : driver.getWindowHandles()) {
+                driver.switchTo().window(winHandle);
+            }
+            driver.close();
+            driver.switchTo().window(winHandleBefore);
+        }
+        return isOpened;
+    }
+
     private String getAttributesByPartialName(WebElement element, String partialName) {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         Object aa = executor.executeScript("var items = {}; " +
@@ -247,6 +398,15 @@ public class CheckWebElementUI extends TestBase {
         return String.format("#%02X%02X%02X", Integer.valueOf(str2[0].replaceAll("\\D+", ""))
                 , Integer.valueOf(str2[1].replaceAll("\\D+", ""))
                 , Integer.valueOf(str2[2].replaceAll("\\D+", "")));
+    }
+
+    private WebElement getTelLink(WebElement element) {
+        for (WebElement href : element.findElements(By.cssSelector("a"))) {
+            if (href.getAttribute("href").contains("tel")) {
+                return href;
+            }
+        }
+        return element;
     }
 
     public String checkCaptionWrapperFontColor(WebElement webElement, String text) {

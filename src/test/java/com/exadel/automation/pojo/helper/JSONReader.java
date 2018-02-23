@@ -17,10 +17,10 @@ import java.util.List;
  * Created by sboreisha on 2/5/2018.
  */
 @Listeners({AllureListener.class, JiraListener.class})
-public class PageElementReader {
+public class JSONReader {
     TestPage response;
 
-    public PageElementReader(File fileName) {
+    public JSONReader(File fileName) {
         JSONParser parser = new JSONParser();
         JSONObject obj = new JSONObject();
         try {

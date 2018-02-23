@@ -69,7 +69,6 @@ public class PageElementRDChecker extends TestBase {
     private String checkResponsiveElement(Elements element, TestPage testPage) {
         int updateJSON = 0;
         CheckWebElementUI helper = new CheckWebElementUI(driver);
-
         RelativeLocation relativeLocation = element.getRelativeLocation();
         WebElement elementToCheck = helper.getWebelementByPageElement(element);
         int x = relativeLocation.getX();
@@ -148,7 +147,7 @@ public class PageElementRDChecker extends TestBase {
 
     @Step("Start verifying element {element.name} on {testPage.windowSize.width} width")
     private String doCheckings(Elements element, TestPage testPage) {
-        CheckerMethodSelector checker = new CheckerMethodSelector(driver);
+        CheckMethodSelector checker = new CheckMethodSelector(driver);
         StringBuilder result = new StringBuilder();
         if (helper.checkElementIsPresent(element)) {
             result.append(checkResponsiveElement(element, testPage))

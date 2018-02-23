@@ -9,16 +9,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Listeners;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by sboreisha on 2/21/2018.
  */
 @Listeners({AllureListener.class, JiraListener.class})
-public class CheckBrightcoveVideo extends CheckWebElementUI implements CheckVideoInterface {
-    public CheckBrightcoveVideo(WebDriver driver) {
+public class CheckVideoBrightcove extends CheckWebElementUI implements CheckVideo {
+    public CheckVideoBrightcove(WebDriver driver) {
         super(driver);
     }
 

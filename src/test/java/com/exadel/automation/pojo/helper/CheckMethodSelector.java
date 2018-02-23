@@ -17,26 +17,27 @@ import java.util.List;
  * Created by sboreisha on 2/5/2018.
  */
 @Listeners({AllureListener.class, JiraListener.class})
-public class CheckerMethodSelector extends TestBase {
+public class CheckMethodSelector extends TestBase {
     WebDriver driver;
     CheckWebElementUI webElementHelper;
-    CheckVideoInterface videoHelperBrightcove;
-    CheckYoutubeVideo videoHelperYoutube;
+    CheckVideo videoHelperBrightcove;
+    CheckVideoYoutube videoHelperYoutube;
 
-    public CheckerMethodSelector(WebDriver driver) {
+    public CheckMethodSelector(WebDriver driver) {
         this.driver = driver;
         this.webElementHelper = new CheckWebElementUI(driver);
-        this.videoHelperBrightcove = new CheckBrightcoveVideo(driver);
-        this.videoHelperYoutube = new CheckYoutubeVideo(driver);
+        this.videoHelperBrightcove = new CheckVideoBrightcove(driver);
+        this.videoHelperYoutube = new CheckVideoYoutube(driver);
     }
 
     public String checkElementLook(Elements element) {
         StringBuilder result = new StringBuilder();
 
-        WebElement elementToCheck = webElementHelper.getWebelementByPageElement(element);
+
         List<ElementChecking> elementCheckings = element.getElementCheckings();
         for (ElementChecking checking : elementCheckings) {
             if (!checking.getValue().contains("-1")) {
+                WebElement elementToCheck = webElementHelper.getWebelementByPageElement(element);
                 switch (checking.getName()) {
                     case "fontSize":
                         result.append(webElementHelper.checkFontSize(elementToCheck, checking.getValue()));
@@ -89,6 +90,19 @@ public class CheckerMethodSelector extends TestBase {
                     case "captionWrapperCursor":
                         result.append(webElementHelper.checkCaptionWrapperCursor(elementToCheck, checking.getValue()));
                         break;
+                    case "checkNewWindowOnHyperlink":
+                        result.append(webElementHelper.checkNewWindowOnHyperlink(elementToCheck));
+                        break;
+                    case "checkTelHyperlink":
+                        result.append(webElementHelper.checkTelHyperlink(elementToCheck));
+                        break;
+                    case "checkNoNewWindowOnHyperlink":
+                        result.append(webElementHelper.checkNoNewWindowOnHyperlink(elementToCheck));
+                        break;
+                    case "checkPhoneAnalytics":
+                        result.append(webElementHelper.checkPhoneLinkAnalytics(elementToCheck, checking.getValue()));
+                        break;
+
                     //------------------------------------------Brightcove Section
                     case "checkPlayDirectVideoBC":
                         result.append(videoHelperBrightcove.checkVideoAutoplay(elementToCheck));

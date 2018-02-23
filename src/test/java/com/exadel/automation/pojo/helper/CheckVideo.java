@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 /**
  * Created by sboreisha on 2/21/2018.
  */
-public interface CheckVideoInterface {
+public interface CheckVideo {
     String checkVideoAutoplay(WebElement element);
 
     String checkPlayPauseButton(WebElement element);

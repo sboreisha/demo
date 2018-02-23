@@ -2,13 +2,11 @@ package com.exadel.automation;
 
 import com.exadel.automation.listeners.AllureListener;
 import com.exadel.automation.listeners.JiraListener;
-import com.exadel.automation.pages.Page;
+import com.exadel.automation.pojo.helper.JSONReader;
 import com.exadel.automation.pojo.helper.PageElementRDChecker;
-import com.exadel.automation.pojo.helper.PageElementReader;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -20,11 +18,9 @@ import java.io.File;
 @Listeners({AllureListener.class, JiraListener.class})
 public class SampleHPETest extends TestBase {
 
-    private Page homepage;
 
     @BeforeMethod
     public void initPageObjects() {
-        homepage = PageFactory.initElements(driver, Page.class);
     }
 
     @Feature("HPE")
@@ -32,7 +28,7 @@ public class SampleHPETest extends TestBase {
     @Description("Verify RD")
     @Test(dataProvider = "getData", description = "Checking page RD")
     public void testRDS(File fileName) {
-        PageElementReader pageComponentReader = new PageElementReader(fileName);
+        JSONReader pageComponentReader = new JSONReader(fileName);
         driver.get(pageComponentReader.getTestPageObject().getUrl());
         PageElementRDChecker locationChecker = new PageElementRDChecker(driver);
         String result = locationChecker.checkResponsivePage(pageComponentReader.getTestPageObject());

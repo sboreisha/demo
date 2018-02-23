@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by sboreisha on 2/21/2018.
  */
-public class CheckYoutubeVideo extends CheckWebElementUI implements CheckVideoInterface {
+public class CheckVideoYoutube extends CheckWebElementUI implements CheckVideo {
     By youtubeTimerBy = By.cssSelector(".ytp-time-current");
     By youtubePlayButton = By.cssSelector(".ytp-play-button");
     By youTubeMuteButton = By.cssSelector(".ytp-mute-button");
@@ -26,7 +26,7 @@ public class CheckYoutubeVideo extends CheckWebElementUI implements CheckVideoIn
     By shareButton = By.cssSelector(".icon-share-global");
     By playOnYoutubeButton = By.cssSelector(".ytp-youtube-button");
 
-    public CheckYoutubeVideo(WebDriver driver) {
+    public CheckVideoYoutube(WebDriver driver) {
         super(driver);
     }
 
