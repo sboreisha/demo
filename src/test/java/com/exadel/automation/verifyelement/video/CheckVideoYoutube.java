@@ -1,5 +1,6 @@
-package com.exadel.automation.pojo.helper;
+package com.exadel.automation.verifyelement.video;
 
+import com.exadel.automation.verifyelement.CheckWebElementBase;
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,24 +14,24 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by sboreisha on 2/21/2018.
  */
-public class CheckVideoYoutube extends CheckWebElementUI implements CheckVideo {
-    By youtubeTimerBy = By.cssSelector(".ytp-time-current");
-    By youtubePlayButton = By.cssSelector(".ytp-play-button");
-    By youTubeMuteButton = By.cssSelector(".ytp-mute-button");
-    By youtubeVolumeSlider = By.cssSelector(".ytp-volume-slider-handle");
-    By youtubeFullscreenButton = By.cssSelector(".ytp-fullscreen-button");
+public class CheckVideoYoutube extends CheckWebElementBase implements CheckVideo {
+    private By youtubeTimerBy = By.cssSelector(".ytp-time-current");
+    private By youtubePlayButton = By.cssSelector(".ytp-play-button");
+    private By youTubeMuteButton = By.cssSelector(".ytp-mute-button");
+    private By youtubeVolumeSlider = By.cssSelector(".ytp-volume-slider-handle");
+    private By youtubeFullscreenButton = By.cssSelector(".ytp-fullscreen-button");
     By closeVideoButton = By.cssSelector(".close-video");
-    By captionTextYoutube = By.cssSelector(".captions-text");
-    By youtubeSubs = By.cssSelector(".ytp-subtitles-button");
-    By sharePopup = By.cssSelector("#at15s");
-    By shareButton = By.cssSelector(".icon-share-global");
-    By playOnYoutubeButton = By.cssSelector(".ytp-youtube-button");
+    private By captionTextYoutube = By.cssSelector(".captions-text");
+    private By youtubeSubs = By.cssSelector(".ytp-subtitles-button");
+    private By sharePopup = By.cssSelector("#at15s");
+    private By shareButton = By.cssSelector(".icon-share-global");
+    private By playOnYoutubeButton = By.cssSelector(".ytp-youtube-button");
 
     public CheckVideoYoutube(WebDriver driver) {
         super(driver);
     }
 
-    private void clickPlayVideoButton(WebElement element) {
+    public void clickPlayVideoButton(WebElement element) {
         pressEsc();
         if (!getElement(videoOverlayBy).getCssValue("display").contains("none")) {
             getElement(closeVideoButton).click();
@@ -178,7 +179,7 @@ public class CheckVideoYoutube extends CheckWebElementUI implements CheckVideo {
     }
 
     private Boolean isYoutubeCCPresent() {
-        return driver.findElements(captionTextYoutube).size() > 0;
+        return checkElementIsPresent(captionTextYoutube);
     }
 
     @Override

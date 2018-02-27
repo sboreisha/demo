@@ -1,4 +1,4 @@
-package com.exadel.automation.pojo.helper;
+package com.exadel.automation.verifyelement;
 
 import com.exadel.automation.listeners.AllureListener;
 import com.exadel.automation.listeners.JiraListener;

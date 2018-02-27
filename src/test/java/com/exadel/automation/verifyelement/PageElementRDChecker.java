@@ -1,4 +1,4 @@
-package com.exadel.automation.pojo.helper;
+package com.exadel.automation.verifyelement;
 
 import com.exadel.automation.TestBase;
 import com.exadel.automation.listeners.AllureListener;
@@ -31,11 +31,11 @@ import java.util.List;
 @Listeners({AllureListener.class, JiraListener.class})
 public class PageElementRDChecker extends TestBase {
     protected WebDriver driver;
-    protected CheckWebElementUI helper;
+    protected CheckWebElementBase helper;
 
     public PageElementRDChecker(WebDriver driver) {
         this.driver = driver;
-        helper = new CheckWebElementUI(driver);
+        helper = new CheckWebElementBase(driver);
     }
 
     private String isXOk(WebElement element, int x) {
@@ -68,7 +68,7 @@ public class PageElementRDChecker extends TestBase {
 
     private String checkResponsiveElement(Elements element, TestPage testPage) {
         int updateJSON = 0;
-        CheckWebElementUI helper = new CheckWebElementUI(driver);
+        CheckWebElementBase helper = new CheckWebElementBase(driver);
         RelativeLocation relativeLocation = element.getRelativeLocation();
         WebElement elementToCheck = helper.getWebelementByPageElement(element);
         int x = relativeLocation.getX();

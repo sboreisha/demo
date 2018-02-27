@@ -2,8 +2,8 @@ package com.exadel.automation;
 
 import com.exadel.automation.listeners.AllureListener;
 import com.exadel.automation.listeners.JiraListener;
-import com.exadel.automation.pojo.helper.JSONReader;
-import com.exadel.automation.pojo.helper.PageElementRDChecker;
+import com.exadel.automation.verifyelement.JSONReader;
+import com.exadel.automation.verifyelement.PageElementRDChecker;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -32,6 +32,7 @@ public class SampleHPETest extends TestBase {
         driver.get(pageComponentReader.getTestPageObject().getUrl());
         PageElementRDChecker locationChecker = new PageElementRDChecker(driver);
         String result = locationChecker.checkResponsivePage(pageComponentReader.getTestPageObject());
+        System.out.println(result);
         Assert.assertFalse(result.contains("- "), "There are mismatches in elements, please refer to steps\n" + result);
     }
 

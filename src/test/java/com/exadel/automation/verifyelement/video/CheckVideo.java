@@ -1,4 +1,4 @@
-package com.exadel.automation.pojo.helper;
+package com.exadel.automation.verifyelement.video;
 
 import org.openqa.selenium.WebElement;
 

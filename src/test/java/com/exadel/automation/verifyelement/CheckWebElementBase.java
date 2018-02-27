@@ -1,4 +1,4 @@
-package com.exadel.automation.pojo.helper;
+package com.exadel.automation.verifyelement;
 
 
 import com.exadel.automation.TestBase;
@@ -16,37 +16,34 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Listeners;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
-import static com.sun.webkit.network.URLs.newURL;
-
 /**
  * Created by sboreisha on 2/5/2018.
  */
 @Listeners({AllureListener.class, JiraListener.class})
-public class CheckWebElementUI extends TestBase {
+public class CheckWebElementBase extends TestBase {
     protected WebDriver driver;
-    By videoOverlayBy = By.id("video-overlay");
-    By captionWrapperBy = By.cssSelector(".caption-wrapper");
+    public By videoOverlayBy = By.id("video-overlay");
+
 
     /*
      * Constructor injecting the WebDriver interface
      *
      * @param webDriver
      */
-    public CheckWebElementUI(WebDriver driver) {
+    public CheckWebElementBase(WebDriver driver) {
         this.driver = driver;
     }
 
     /**
      * Builds webdriver by based on json component selector
+     *
      * @param componentSelector
      * @return
      */
@@ -76,6 +73,7 @@ public class CheckWebElementUI extends TestBase {
 
     /**
      * Builds element by base on json element
+     *
      * @param elementSelector
      * @return
      */
@@ -85,6 +83,7 @@ public class CheckWebElementUI extends TestBase {
 
     /**
      * Search for Web Element based on JSON element
+     *
      * @param element
      * @return
      * @throws NoSuchElementException
@@ -95,6 +94,7 @@ public class CheckWebElementUI extends TestBase {
 
     /**
      * Get web element by webdriver By
+     *
      * @param by
      * @return
      * @throws NoSuchElementException
@@ -110,6 +110,7 @@ public class CheckWebElementUI extends TestBase {
 
     /**
      * Checks font family of the element
+     *
      * @param webElement
      * @param fontFamily expected font family
      * @return
@@ -126,8 +127,9 @@ public class CheckWebElementUI extends TestBase {
 
     /**
      * Checks text align
+     *
      * @param webElement
-     * @param textAlign expected align
+     * @param textAlign  expected align
      * @return
      */
     public String checkTextAlign(WebElement webElement, String textAlign) {
@@ -142,21 +144,23 @@ public class CheckWebElementUI extends TestBase {
 
     /**
      * Checks font color in hex
+     *
      * @param webElement
      * @param hexColor
      * @return
      */
     public String checkFontColor(WebElement webElement, String hexColor) {
-        String actualSize = webElement.getCssValue("color");
-        if ((rgbToHex(actualSize)).contains(hexColor)) {
+        String actualColor = webElement.getCssValue("color");
+        if ((rgbToHex(actualColor)).contains(hexColor)) {
             return "+ Font color is ok \n";
         } else {
-            return failedStepLog("- Expected font color " + hexColor + ", but got " + rgbToHex(actualSize) + "\n");
+            return failedStepLog("- Expected font color " + hexColor + ", but got " + rgbToHex(actualColor) + "\n");
         }
     }
 
     /**
      * Checks line height of the element
+     *
      * @param webElement
      * @param expectedSize
      * @return
@@ -172,6 +176,7 @@ public class CheckWebElementUI extends TestBase {
 
     /**
      * Checks font size of text element
+     *
      * @param webElement
      * @param expectedSize
      * @return
@@ -185,42 +190,13 @@ public class CheckWebElementUI extends TestBase {
         }
     }
 
-    public String checkImageCanBeLoaded(WebElement element) {
-        WebElement webElement = element.findElement(By.cssSelector("img"));
-        String Source = webElement.getAttribute("currentSrc");
-        try {
-            BufferedImage img = ImageIO.read(newURL(Source));
-            return "+ Image can be loaded";
-        } catch (Exception e) {
-            return failedStepLog("- Image can not be loaded \n");
-        }
-    }
-
-    public String checkImageRenditions(WebElement element, String expectedSource) {
-        WebElement webElement = element.findElement(By.cssSelector("img"));
-        String source = webElement.getAttribute("currentSrc");
-        try {
-            if (source.contains(expectedSource)) {
-                return "+ Image rendition is ok";
-            }
-            return failedStepLog("- Image rendition is not OK. Expected " + expectedSource + " but got " + source + "\n");
-        } catch (NullPointerException e) {
-
-            return "";
-        }
-    }
-
-    public String checkImageCursor(WebElement webElement, String expectedStyle) {
-        WebElement wrapper = webElement.findElement(By.cssSelector(".image-wrapper"));
-        return checkCursorStyle(wrapper, expectedStyle);
-    }
-
-    public String checkCaptionWrapperCursor(WebElement webElement, String expectedStyle) {
-        WebElement wrapper = webElement.findElement(captionWrapperBy);
-        return checkCursorStyle(wrapper, expectedStyle);
-    }
-
-
+    /**
+     * Checks cursor style for web element
+     *
+     * @param webElement    webelement to check
+     * @param expectedStyle e.g. pointer or auto
+     * @return
+     */
     public String checkCursorStyle(WebElement webElement, String expectedStyle) {
         String actualSize = webElement.getCssValue("cursor");
         if (expectedStyle.equalsIgnoreCase(actualSize)) {
@@ -230,31 +206,13 @@ public class CheckWebElementUI extends TestBase {
         }
     }
 
-    public String checkAltText(WebElement webElement, String expectedStyle) {
-        WebElement element = webElement.findElement(By.tagName("img"));
-        String actualSize = element.getAttribute("title");
-        if (expectedStyle.equalsIgnoreCase(actualSize)) {
-            return "+ Popup text is ok \n";
-        } else {
-            return failedStepLog("- Expected popup text to be " + expectedStyle + ", but got " + actualSize + "\n");
-        }
-    }
-
-    public String checkCaptionWrapperTextSize(WebElement webElement, String text) {
-        WebElement captionWrapper = webElement.findElement(captionWrapperBy);
-        return checkFontSize(captionWrapper, text);
-    }
-
-    public String checkCaptionWrapperFontStyle(WebElement webElement, String text) {
-        WebElement captionWrapper = webElement.findElement(captionWrapperBy);
-        return checkFontFamily(captionWrapper, text);
-    }
-
-    public String checkCaptionWrapperTextAlign(WebElement webElement, String text) {
-        WebElement captionWrapper = webElement.findElement(captionWrapperBy);
-        return checkTextAlign(captionWrapper, text);
-    }
-
+    /**
+     * Checks if provided data attribute is present in element
+     *
+     * @param element element to check
+     * @param value   data attribute to check
+     * @return
+     */
     public String checkDataAttribute(WebElement element, String value) {
         String actualName = getAttributesByPartialName(element, "data");
         if (actualName.contains(value)) {
@@ -263,10 +221,36 @@ public class CheckWebElementUI extends TestBase {
         return failedStepLog("- Expected data attribute to be " + value + ", but got " + actualName + "\n");
     }
 
-    public String checkPhoneLinkAnalytics(WebElement element, String value) {
-        return checkAllAnalytics(getTelLink(element),value);
+    /**
+     * Checks all attributes with data prefix value
+     *
+     * @param element element to check
+     * @param value   coma separated list of expected attributes
+     * @return not matched attributes
+     */
+    public String checkAllDataAttributes(WebElement element, String value) {
+        String[] expectedArray = value.split(",");
+        String[] actualArray = getAttributesByPartialName(element, "data").replace("{", "").replace("}", "").split(",");
+        ArrayList expectedValues = new ArrayList<String>(Arrays.asList(expectedArray));
+        ArrayList actualValues = new ArrayList<String>(Arrays.asList(actualArray));
+        expectedValues.removeAll(Arrays.asList(actualArray)); //list contains items only in name
+        actualValues.removeAll(Arrays.asList(expectedArray)); //list2 contains items only in name2
+        actualValues.addAll(expectedValues); //list2 now contains all the not-common items
+
+        if (actualValues.size() == 0) {
+            return "+ All data attributes are ok\n";
+        }
+        return failedStepLog("- Invalid attribute values:" + actualValues.toString() + "\n");
+
     }
 
+    /**
+     * Checks all analytics attribute
+     *
+     * @param element webelement to check
+     * @param value   coma separated analytics attribute with values
+     * @return
+     */
     public String checkAllAnalytics(WebElement element, String value) {
         String[] expectedArray = value.split(",");
         String[] actualArray = getAttributesByPartialName(element, "analytics").replace("{", "").replace("}", "").split(",");
@@ -283,13 +267,96 @@ public class CheckWebElementUI extends TestBase {
 
     }
 
-    public String checkBgColor(WebElement webElement, String text) {
+    /**
+     * Checks background color of element
+     *
+     * @param webElement
+     * @param hexColor
+     * @return
+     */
+    public String checkBgColor(WebElement webElement, String hexColor) {
         String str = webElement.getCssValue("background-color");
-        if (text.equalsIgnoreCase(rgbToHex(str))) {
+        if (hexColor.equalsIgnoreCase(rgbToHex(str))) {
             return "+ Caption wrapper background color is ok \n";
         } else {
-            return failedStepLog("- Expected caption wrapper background color to be " + text + ", but got " + rgbToHex(str) + "\n");
+            return failedStepLog("- Expected caption wrapper background color to be " + hexColor + ", but got " + rgbToHex(str) + "\n");
         }
+    }
+
+
+    public boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } // try
+        catch (Exception e) {
+            return false;
+        } // catch
+    }
+
+    /**
+     * Checks if there are more then 1 window/tab opened, closes secondary window
+     *
+     * @return
+     */
+    public Boolean isNewWindowOpened() {
+        Boolean isOpened = false;
+        String winHandleBefore = driver.getWindowHandle();
+        if (driver.getWindowHandles().size() > 1) {
+            isOpened = true;
+
+            for (String winHandle : driver.getWindowHandles()) {
+                driver.switchTo().window(winHandle);
+            }
+            driver.close();
+            driver.switchTo().window(winHandleBefore);
+        }
+        return isOpened;
+    }
+
+
+    /**
+     * Gets all webelent's attributes with partial name
+     *
+     * @param element
+     * @param partialName
+     * @return
+     */
+    private String getAttributesByPartialName(WebElement element, String partialName) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        Object aa = executor.executeScript("var items = {}; " +
+                "var substring=\"" + partialName + "\";" +
+                "for (index = 0; index < arguments[0].attributes.length; ++index) " +
+                "{if(arguments[0].attributes[index].name.includes(substring)){" +
+                " items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }}; " +
+                "return items;", element);
+        return aa.toString();
+    }
+
+    /**
+     * Converts RGB color to HEX color
+     *
+     * @param color
+     * @return
+     */
+    private String rgbToHex(String color) {
+        String[] str2 = color.split(",");
+        return String.format("#%02X%02X%02X", Integer.valueOf(str2[0].replaceAll("\\D+", ""))
+                , Integer.valueOf(str2[1].replaceAll("\\D+", ""))
+                , Integer.valueOf(str2[2].replaceAll("\\D+", "")));
+    }
+
+    /**
+     * Checks if video timer is present for element
+     *
+     * @param element
+     * @return
+     */
+    public String checkVideoInfoTimer(WebElement element) {
+        if (element.findElements(By.cssSelector(".video-info")).size() > 0) {
+            return "+ Video info is present";
+        }
+        return failedStepLog("- Video info is not displayed\n");
     }
 
     public String checkNewWindowOnHyperlink(WebElement element) {
@@ -325,112 +392,6 @@ public class CheckWebElementUI extends TestBase {
             return failedStepLog("- something went wrong with no new window on hyperlink\n");
         }
     }
-
-    public String checkTelHyperlink(WebElement element) {
-        String result = "";
-        try {
-            getTelLink(element).click();
-            result = "+ Phone link contains phone number\n";
-            Boolean isOpened = true;
-            if (isAlertPresent()) {
-                driver.switchTo().alert();
-                driver.switchTo().alert().dismiss();
-                driver.switchTo().defaultContent();
-                result = "+ Popup has been shown on phone link click\n";
-            }
-            try {
-                String winHandleBefore = driver.getWindowHandle();
-                for (String winHandle : driver.getWindowHandles()) {
-                    driver.switchTo().window(winHandle);
-                }
-                driver.close();
-                driver.switchTo().window(winHandleBefore);
-            } catch (Exception e) {
-                logger.info("No new window has been shown on tel link\n");
-            }
-            if (isOpened) {
-                return result;
-            }
-            return failedStepLog("- URL with phone number is not opened in a new window\n");
-        } catch (Exception e) {
-            return failedStepLog("- something went wrong with tel on hyperlink\n");
-        }
-    }
-
-    private boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } // try
-        catch (Exception e) {
-            return false;
-        } // catch
-    }
-
-    private Boolean isNewWindowOpened() {
-        Boolean isOpened = false;
-        String winHandleBefore = driver.getWindowHandle();
-        if (driver.getWindowHandles().size() > 1) {
-            isOpened = true;
-
-            for (String winHandle : driver.getWindowHandles()) {
-                driver.switchTo().window(winHandle);
-            }
-            driver.close();
-            driver.switchTo().window(winHandleBefore);
-        }
-        return isOpened;
-    }
-
-    private String getAttributesByPartialName(WebElement element, String partialName) {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        Object aa = executor.executeScript("var items = {}; " +
-                "var substring=\"" + partialName + "\";" +
-                "for (index = 0; index < arguments[0].attributes.length; ++index) " +
-                "{if(arguments[0].attributes[index].name.includes(substring)){" +
-                " items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }}; " +
-                "return items;", element);
-        return aa.toString();
-    }
-
-    private String rgbToHex(String color) {
-        String[] str2 = color.split(",");
-        return String.format("#%02X%02X%02X", Integer.valueOf(str2[0].replaceAll("\\D+", ""))
-                , Integer.valueOf(str2[1].replaceAll("\\D+", ""))
-                , Integer.valueOf(str2[2].replaceAll("\\D+", "")));
-    }
-
-    private WebElement getTelLink(WebElement element) {
-        for (WebElement href : element.findElements(By.cssSelector("a"))) {
-            if (href.getAttribute("href").contains("tel")) {
-                return href;
-            }
-        }
-        return element;
-    }
-
-    public String checkCaptionWrapperFontColor(WebElement webElement, String text) {
-        WebElement captionWrapper = webElement.findElement(captionWrapperBy);
-        return checkFontColor(captionWrapper, text);
-    }
-
-    public String checkCaptionWrapperText(WebElement webElement, String text) {
-        WebElement captionWrapper = webElement.findElement(captionWrapperBy);
-        String actualText = captionWrapper.getText();
-        if (text.equalsIgnoreCase(actualText)) {
-            return "+ Caption wrapper text is ok \n";
-        } else {
-            return failedStepLog("- Expected caption wrapper text to be " + text + ", but got " + actualText + "\n");
-        }
-    }
-
-    public String checkVideoInfoTimer(WebElement element) {
-        if (element.findElements(By.cssSelector(".video-info")).size() > 0) {
-            return "+ Video info is present";
-        }
-        return failedStepLog("- Video info is not displayed\n");
-    }
-
 
     public boolean checkElementIsPresent(By by) {
         try {

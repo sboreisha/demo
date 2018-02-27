@@ -1,7 +1,8 @@
-package com.exadel.automation.pojo.helper;
+package com.exadel.automation.verifyelement.video;
 
 import com.exadel.automation.listeners.AllureListener;
 import com.exadel.automation.listeners.JiraListener;
+import com.exadel.automation.verifyelement.CheckWebElementBase;
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,17 +16,17 @@ import java.util.concurrent.TimeUnit;
  * Created by sboreisha on 2/21/2018.
  */
 @Listeners({AllureListener.class, JiraListener.class})
-public class CheckVideoBrightcove extends CheckWebElementUI implements CheckVideo {
+public class CheckVideoBrightcove extends CheckWebElementBase implements CheckVideo {
     public CheckVideoBrightcove(WebDriver driver) {
         super(driver);
     }
 
-    By captionsPopupBy = By.cssSelector(".vjs-subs-caps-button .vjs-menu");
-    By captionButtonBy = By.cssSelector(".vjs-subs-caps-button");
-    By captionText = By.cssSelector(".vjs-text-track-display div div");
+    private By captionsPopupBy = By.cssSelector(".vjs-subs-caps-button .vjs-menu");
+    private By captionButtonBy = By.cssSelector(".vjs-subs-caps-button");
+    private By captionText = By.cssSelector(".vjs-text-track-display div div");
     By closeVideoButton = By.cssSelector(".close-video");
-    By sharePopup = By.cssSelector("#at15s");
-    By shareButton = By.cssSelector(".icon-share-global");
+    private By sharePopup = By.cssSelector("#at15s");
+    private By shareButton = By.cssSelector(".icon-share-global");
 
     /**
      * Check if video is opened by video button click and closed by ESC button
@@ -36,9 +37,9 @@ public class CheckVideoBrightcove extends CheckWebElementUI implements CheckVide
     public String checkShareButton(WebElement element) {
         pressEsc();
         clickPlayVideoButton(element);
-        Actions actions =new Actions(driver);
+        Actions actions = new Actions(driver);
         actions.moveToElement(getElement(shareButton)).pause(150).perform();
-        if(getElement(sharePopup).getCssValue("display").equals("block")){
+        if (getElement(sharePopup).getCssValue("display").equals("block")) {
             return "+ Share popup is shown on mouse hover\n";
         }
         return failedStepLog("- Share popup is not shown on hover\n");
@@ -169,7 +170,8 @@ public class CheckVideoBrightcove extends CheckWebElementUI implements CheckVide
     }
 
     private Boolean isCaptionTextDisplayed() {
-        return driver.findElements(captionText).size() > 0;
+
+        return checkElementIsPresent(captionText);
     }
 
     private Boolean muteIsOn() {
@@ -200,7 +202,7 @@ public class CheckVideoBrightcove extends CheckWebElementUI implements CheckVide
         return false;
     }
 
-    private void clickPlayVideoButton(WebElement element) {
+    public void clickPlayVideoButton(WebElement element) {
         pressEsc();
         if (!getElement(videoOverlayBy).getCssValue("display").contains("none")) {
             pressEsc();
