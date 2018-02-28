@@ -3,7 +3,7 @@
 <suite name="HPE test" verbose="5">
   <test name="Page test">
     <classes>
-      <class name="com.exadel.automation.SampleHPETest"/>
+      <class name="com.hpe.automation.SampleHPETest"/>
     </classes>
   </test>
 </suite>
