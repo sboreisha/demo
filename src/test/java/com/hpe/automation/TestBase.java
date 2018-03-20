@@ -4,8 +4,6 @@ import com.hpe.automation.listeners.AllureListener;
 import com.hpe.automation.listeners.JiraListener;
 import com.hpe.automation.utils.PropertiesLoader;
 import com.rmn.testrail.entity.TestResult;
-import com.rmn.testrail.entity.TestRun;
-import com.rmn.testrail.service.TestRailService;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.qameta.allure.model.Status;
@@ -21,7 +19,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Properties;
 
@@ -34,14 +31,11 @@ import static com.hpe.automation.WebDriverManager.setupWebDriver;
 public class TestBase {
 
     public final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
-    protected static URL gridHubUrl = null;
+    protected static String folder;
     protected static String baseUrl;
     protected static Capabilities capabilities;
     protected static PropertiesLoader propertiesLoader;
-    protected static TestRailService testRailService;
-    protected static TestRun testRun;
     protected static String testCaseId;
-    protected static int testRunId;
     protected static String msg;
     protected static TestResult testResult;
     protected Properties env;
@@ -67,18 +61,17 @@ public class TestBase {
     }
 
 
-
     @BeforeSuite(alwaysRun = true)
     public void initTestSuite() throws IOException {
         SuiteConfiguration config = new SuiteConfiguration();
-        baseUrl = config.getProperty("site.url");
+        baseUrl = System.getProperty("site.url.jenkins", config.getProperty("site.url"));
+        folder = System.getProperty("component.folder", "");
         capabilities = config.getCapabilities();
         propertiesLoader = new PropertiesLoader();
         setupWebDriver(config);
         // testRailService = createTestRailService(propertiesLoader.getTestRailEndPoint(), propertiesLoader.getTestRailUsername(), propertiesLoader.getTestRailPassword());
         //testRun = addTestRun(testRailService, true);
         //testRunId = testRun.getId();
-
         env = new Properties();
         env.setProperty("Base URL", baseUrl);
         //env.setProperty("Test rail run", "https://newdemoproject.testrail.io/index.php?/runs/view/" + (testRunId + 1));

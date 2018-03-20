@@ -7,6 +7,8 @@ import com.hpe.automation.verifyelement.PageElementRDChecker;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -14,6 +16,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.util.List;
 
 @Listeners({AllureListener.class, JiraListener.class})
 public class SampleHPETest extends TestBase {
@@ -29,7 +32,7 @@ public class SampleHPETest extends TestBase {
     @Test(dataProvider = "getData", description = "Checking page RD")
     public void testRDS(File fileName) {
         JSONReader pageComponentReader = new JSONReader(fileName);
-        driver.get(pageComponentReader.getTestPageObject().getUrl());
+        driver.get(baseUrl + pageComponentReader.getTestPageObject().getUrl());
         PageElementRDChecker locationChecker = new PageElementRDChecker(driver);
         String result = locationChecker.checkResponsivePage(pageComponentReader.getTestPageObject());
         System.out.println(result);
@@ -38,14 +41,13 @@ public class SampleHPETest extends TestBase {
 
     @DataProvider
     public Object[][] getData() {
-        File folder = new File("src/test/resources/specs");
-        File[] list = folder.listFiles();
-
+        File dir = new File("src/test/resources/specs");
+        List<File> files = (List<File>) FileUtils.listFiles(dir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         //Rows - Number of times your test has to be repeated.
         //Columns - Number of parameters in test data.
-        Object[][] data = new Object[list.length][1];
-        for (int i = 0; i < list.length; i++) {
-            data[i][0] = list[i];
+        Object[][] data = new Object[files.size()][1];
+        for (int i = 0; i < files.size(); i++) {
+            data[i][0] = files.get(i);
         }
 
         return data;
