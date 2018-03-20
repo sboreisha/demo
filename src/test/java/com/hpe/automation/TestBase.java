@@ -65,7 +65,7 @@ public class TestBase {
     public void initTestSuite() throws IOException {
         SuiteConfiguration config = new SuiteConfiguration();
         System.out.println("+++++++++++++++++++0"+config.getProperty("site.url"));
-        baseUrl = System.getProperty("site.url.jenkins", config.getProperty("site.url"));
+        baseUrl = System.getProperty("startUrl", config.getProperty("site.url"));
         System.out.println("*********************"+baseUrl);
         folder = System.getProperty("component.folder", "");
         capabilities = config.getCapabilities();
