@@ -24,7 +24,7 @@
         <restassured.version>3.0.6</restassured.version>
         <jackson.version>2.9.2</jackson.version>
         <testrailsdk.version>1.3</testrailsdk.version>
-        <startUrl>${env.ENVIRONMENT}</startUrl>
+        <startUrl>${ENVIRONMENT}</startUrl>
         <chrome-driver.version>2.33</chrome-driver.version>
         <edge-driver.version>3.14393</edge-driver.version>
         <ie-driver.version>3.7.0</ie-driver.version>

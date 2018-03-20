@@ -64,7 +64,7 @@ public class TestBase {
     @BeforeSuite(alwaysRun = true)
     public void initTestSuite() throws IOException {
         SuiteConfiguration config = new SuiteConfiguration();
-        System.out.println("+++++++++++++++++++0"+config.getProperty("site.url"));
+        System.out.println("+++++++++++++++++++0"+System.getProperty("startUrl"));
         baseUrl = System.getProperty("startUrl", config.getProperty("site.url"));
         System.out.println("*********************"+baseUrl);
         folder = System.getProperty("component.folder", "");
