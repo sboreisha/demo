@@ -32,6 +32,7 @@ public class SampleHPETest extends TestBase {
     @Test(dataProvider = "getData", description = "Checking page RD")
     public void testRDS(File fileName) {
         JSONReader pageComponentReader = new JSONReader(fileName);
+        System.out.println("---------------------"+baseUrl + pageComponentReader.getTestPageObject().getUrl());
         driver.get(baseUrl + pageComponentReader.getTestPageObject().getUrl());
         PageElementRDChecker locationChecker = new PageElementRDChecker(driver);
         String result = locationChecker.checkResponsivePage(pageComponentReader.getTestPageObject());
