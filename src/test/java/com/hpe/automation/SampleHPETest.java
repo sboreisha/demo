@@ -32,7 +32,7 @@ public class SampleHPETest extends TestBase {
     @Test(dataProvider = "getData", description = "Checking page RD")
     public void testRDS(File fileName) {
         JSONReader pageComponentReader = new JSONReader(fileName);
-        System.out.println("---------------------"+baseUrl + pageComponentReader.getTestPageObject().getUrl());
+        System.out.println("---------------------" + baseUrl + pageComponentReader.getTestPageObject().getUrl());
         driver.get(baseUrl + pageComponentReader.getTestPageObject().getUrl());
         PageElementRDChecker locationChecker = new PageElementRDChecker(driver);
         String result = locationChecker.checkResponsivePage(pageComponentReader.getTestPageObject());
@@ -42,7 +42,7 @@ public class SampleHPETest extends TestBase {
 
     @DataProvider
     public Object[][] getData() {
-        File dir = new File("src/test/resources/specs");
+        File dir = new File("src/test/resources/specs/" + folder);
         List<File> files = (List<File>) FileUtils.listFiles(dir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         //Rows - Number of times your test has to be repeated.
         //Columns - Number of parameters in test data.
