@@ -1,0 +1,269 @@
+{
+  "url": "/us/en/regression/components/image-only.html",
+  "windowSize": {
+    "width": 1201,
+    "height": 768
+  },
+  "component": [
+    {
+      "name": "Component image only 1",
+      "componentSelector": {
+        "how": "XPath",
+        "selector": "//*[@id\u003d\"content\"]/div/div/div[1]/div/div/div/div/div"
+      },
+      "element": [
+        {
+          "name": "image 1",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id\u003d\"content\"]/div/div/div[1]/div/div/div/div/div"
+          },
+          "elementCheckings": [
+            {
+              "name": "rendition",
+              "value": "1"
+            },
+            {
+              "name": "checkImageLoaded",
+              "value": "2"
+            },
+            {
+              "name": "titleText",
+              "value": "3"
+            },
+            {
+              "name": "cursorStyleOnImage",
+              "value": "4"
+            },
+            {
+              "name": "checkImageClickable",
+              "value": "4"
+            }
+          ],
+          "relativeLocation": {
+            "x": 75,
+            "y": 85,
+            "height": 679,
+            "width": 1018
+          }
+        }
+      ]
+    },
+    {
+      "name": "Component image only 2",
+      "componentSelector": {
+        "how": "XPath",
+        "selector": "//*[@id\u003d\"content\"]/div/div/div[3]/div/div/div/div[1]/div"
+      },
+      "element": [
+        {
+          "name": "image 2",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id\u003d\"content\"]/div/div/div[3]/div/div/div/div[1]/div"
+          },
+          "elementCheckings": [
+            {
+              "name": "rendition",
+              "value": "1"
+            },
+            {
+              "name": "checkImageLoaded",
+              "value": "2"
+            },
+            {
+              "name": "titleText",
+              "value": "3"
+            },
+            {
+              "name": "cursorStyleOnImage",
+              "value": "4"
+            },
+            {
+              "name": "checkImageClickable",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperText",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperTextSize",
+              "value": "14px"
+            },
+            {
+              "name": "captionFontColor",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperBgColor",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperTextAlign",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperCursor",
+              "value": "4"
+            },
+            {
+              "name": "checkPlayDirectVideoBC",
+              "value": "4"
+            },
+            {
+              "name": "checkPlayPauseButtonBC",
+              "value": "4"
+            },
+            {
+              "name": "checkPlayPauseOnSpaceBC",
+              "value": "4"
+            },
+            {
+              "name": "checkMuteUnmuteBC",
+              "value": "4"
+            },
+            {
+              "name": "checkVideoCaptionBC",
+              "value": "4"
+            },
+            {
+              "name": "checkFullscreenVideoBC",
+              "value": "4"
+            },
+            {
+              "name": "checkVideoCloseIconBC",
+              "value": "4"
+            },
+            {
+              "name": "checkShareBC",
+              "value": "4"
+            },
+            {
+              "name": "checkVideoInfo",
+              "value": "4"
+            }
+          ],
+          "relativeLocation": {
+            "x": 75,
+            "y": 880,
+            "height": 370,
+            "width": 494
+          }
+        }
+      ]
+    },
+    {
+      "name": "Component image only 3",
+      "componentSelector": {
+        "how": "XPath",
+        "selector": "//*[@id=\"content\"]/div/div/div[3]/div/div/div/div[2]/div"
+      },
+      "element": [
+        {
+          "name": "image 3",
+          "elementSelector": {
+            "how": "XPath",
+            "selector": "//*[@id=\"content\"]/div/div/div[3]/div/div/div/div[2]/div"
+          },
+          "elementCheckings": [
+            {
+              "name": "rendition",
+              "value": "1"
+            },
+            {
+              "name": "checkImageLoaded",
+              "value": "2"
+            },
+            {
+              "name": "titleText",
+              "value": "3"
+            },
+            {
+              "name": "cursorStyleOnImage",
+              "value": "4"
+            },
+            {
+              "name": "checkImageClickable",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperText",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperTextSize",
+              "value": "14px"
+            },
+            {
+              "name": "captionFontColor",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperBgColor",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperTextAlign",
+              "value": "4"
+            },
+            {
+              "name": "captionWrapperCursor",
+              "value": "4"
+            },
+            {
+              "name": "checkPlayDirectVideoYT",
+              "value": "4"
+            },
+            {
+              "name": "checkPlayPauseButtonYT",
+              "value": "4"
+            },
+            {
+              "name": "checkPlayPauseOnSpaceYT",
+              "value": "4"
+            },
+            {
+              "name": "checkPlayPauseOnSpaceYT",
+              "value": "4"
+            },
+            {
+              "name": "checkVideoCaptionYT",
+              "value": "4"
+            },
+            {
+              "name": "checkMuteUnmuteYT",
+              "value": "4"
+            },
+            {
+              "name": "checkFullscreenVideoYT",
+              "value": "4"
+            },
+            {
+              "name": "checkVideoCloseIconYT",
+              "value": "4"
+            },
+            {
+              "name": "checkShareYT",
+              "value": "4"
+            },
+            {
+              "name": "checkPlayOnYoutubeButton",
+              "value": "4"
+            },
+            {
+              "name": "checkVideoInfo",
+              "value": "4"
+            }
+          ],
+          "relativeLocation": {
+            "x": 599,
+            "y": 880,
+            "height": 329,
+            "width": 494
+          }
+        }
+      ]
+    }
+  ]
+}
